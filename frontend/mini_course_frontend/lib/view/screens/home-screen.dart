@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mini_course_frontend/controller/AuthProvider.dart';
 import 'package:mini_course_frontend/controller/apiService.dart';
 import 'package:mini_course_frontend/controller/courseProvider.dart';
 import 'package:mini_course_frontend/view/components/courseContainer.dart';
 import 'package:mini_course_frontend/view/components/courseTile.dart';
 import 'package:mini_course_frontend/view/components/searchbar.dart';
+import 'package:mini_course_frontend/view/globel_widget.dart';
 import 'package:mini_course_frontend/view/screens/courseDetail-screen.dart';
 import 'package:mini_course_frontend/view/theme.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +22,22 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     fetchCourses();
+  }
+
+  void logout() async {
+    final provider = Provider.of<AuthProvider>(context, listen: false);
+    showLoading(context);
+    await provider.logoutHandler();
+
+    if (!mounted) return;
+    if (provider.errorMessage != null) {
+      showMessage(context, provider.errorMessage!);
+    } else if (provider.successMessage != null) {
+      showMessage(context, provider.successMessage!);
+    }
+    Navigator.pop(context);
+    Navigator.pushNamedAndRemoveUntil(
+        context, 'auth', (Route<dynamic> route) => false);
   }
 
   void fetchCourses() async {
@@ -59,6 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
               'What do you want to learn?',
               style: AppTheme.body,
             ),
+            ElevatedButton(
+                onPressed: logout, child: Text("Test logout button")),
             SizedBox(height: 10),
             MySearchBar(),
             CourseContainer(),

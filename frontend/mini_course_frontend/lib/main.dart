@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_course_frontend/controller/AuthProvider.dart';
 import 'package:mini_course_frontend/controller/courseProvider.dart';
 import 'package:mini_course_frontend/view/components/courseContainer.dart';
+import 'package:mini_course_frontend/view/screens/auth_screen.dart';
 import 'package:mini_course_frontend/view/screens/courseDetail-screen.dart';
 import 'package:mini_course_frontend/view/screens/home-screen.dart';
 import 'package:mini_course_frontend/view/screens/login-screen.dart';
@@ -29,10 +30,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Text',
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: AuthScreen(),
       routes: {
+        'auth': (context) => AuthScreen(),
         'login': (context) => LoginScreen(),
         'register': (context) => RegisterScreen(),
+        'home': (context) => HomeScreen(),
       },
     );
   }

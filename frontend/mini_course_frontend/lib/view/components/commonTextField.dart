@@ -3,14 +3,20 @@ import 'package:mini_course_frontend/view/theme.dart';
 
 class CommonTextField extends StatelessWidget {
   final String hintText;
+  final String? Function(String?)? validator;
+  final TextEditingController controller;
   const CommonTextField({
     super.key,
     required this.hintText,
+    required this.controller,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      controller: controller,
+      validator: validator,
       decoration: InputDecoration(
           hintText: hintText,
           filled: true,
