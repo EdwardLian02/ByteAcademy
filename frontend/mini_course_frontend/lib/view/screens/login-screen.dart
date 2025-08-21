@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
         showMessage(context, provider.successMessage!);
       }
       Navigator.pushNamedAndRemoveUntil(
-          context, 'home', (Route<dynamic> route) => false);
+          context, 'auth', (Route<dynamic> route) => false);
     }
   }
 

@@ -27,10 +27,11 @@ class AuthenticationService {
         return TokenModel.fromJson(
             jsonDecode(response.body) as Map<String, dynamic>);
       } else {
-        throw Exception("Something wrong while logging in");
+        throw Exception(jsonDecode(response.body)['detail']);
       }
     } catch (e) {
-      throw Exception("Something wrong while logging in");
+      throw Exception(
+          "Something wrong while logging in. Please Try Again Later");
     }
   }
 

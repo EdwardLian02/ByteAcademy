@@ -4,6 +4,7 @@ import 'package:mini_course_frontend/controller/apiService.dart';
 import 'package:mini_course_frontend/controller/courseProvider.dart';
 import 'package:mini_course_frontend/view/components/courseContainer.dart';
 import 'package:mini_course_frontend/view/components/courseTile.dart';
+import 'package:mini_course_frontend/view/components/my_drawer.dart';
 import 'package:mini_course_frontend/view/components/searchbar.dart';
 import 'package:mini_course_frontend/view/globel_widget.dart';
 import 'package:mini_course_frontend/view/screens/courseDetail-screen.dart';
@@ -51,24 +52,23 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actionsPadding: EdgeInsets.only(right: 20),
+        backgroundColor: AppTheme.lighbackground,
+        actions: [
+          CircleAvatar(),
+        ],
+      ),
+      drawer: MyDrawer(),
       backgroundColor: AppTheme.lighbackground,
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: 50,
           horizontal: 20,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(Icons.menu),
-                CircleAvatar(),
-              ],
-            ),
-            SizedBox(height: 20),
             Text(
               "Hello, Students",
               style: AppTheme.subheading,
@@ -77,8 +77,6 @@ class _HomeScreenState extends State<HomeScreen> {
               'What do you want to learn?',
               style: AppTheme.body,
             ),
-            ElevatedButton(
-                onPressed: logout, child: Text("Test logout button")),
             SizedBox(height: 10),
             MySearchBar(),
             CourseContainer(),

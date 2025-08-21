@@ -36,10 +36,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         showMessage(context, provider.errorMessage!);
       } else if (provider.successMessage != null) {
         showMessage(context, provider.successMessage!);
+        Navigator.pushNamedAndRemoveUntil(
+            context, "login", (Route<dynamic> route) => false);
       }
-
-      Navigator.pushNamedAndRemoveUntil(
-          context, "login", (Route<dynamic> route) => false);
     }
   }
 

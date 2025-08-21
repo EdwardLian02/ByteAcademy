@@ -39,11 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #third-party library
     'rest_framework', 
     'rest_framework_simplejwt',
     'djoser',
     
-    'api', 
+    #application
+    'courses',
+    'enrollments',
     'authentication',
 ]
 

@@ -4,11 +4,11 @@ import 'package:http/http.dart' as http;
 import 'package:mini_course_frontend/model/courseModel.dart';
 
 class APIService {
-  final String baseUrl = 'http://127.0.0.1:8000/api/';
+  final String baseUrl = 'http://127.0.0.1:8000/course_api/';
 
   Future<List<dynamic>> fetchCourse() async {
     final response = await http.get(
-      Uri.parse("${baseUrl}courses"),
+      Uri.parse("${baseUrl}courses/"),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -28,7 +28,7 @@ class APIService {
 
   Future<CourseModel> fetchCourseDetail(id) async {
     final response =
-        await http.get(Uri.parse('${baseUrl}course/$id'), headers: {
+        await http.get(Uri.parse('${baseUrl}courses/$id'), headers: {
       'Content-Type': 'application/json',
     });
 

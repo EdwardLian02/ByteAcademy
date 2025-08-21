@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mini_course_frontend/controller/AuthProvider.dart';
 import 'package:mini_course_frontend/controller/courseProvider.dart';
-import 'package:mini_course_frontend/view/components/courseContainer.dart';
+
 import 'package:mini_course_frontend/view/screens/auth_screen.dart';
-import 'package:mini_course_frontend/view/screens/courseDetail-screen.dart';
+
 import 'package:mini_course_frontend/view/screens/home-screen.dart';
 import 'package:mini_course_frontend/view/screens/login-screen.dart';
 import 'package:mini_course_frontend/view/screens/register-screen.dart';
-import 'package:mini_course_frontend/view/screens/splash-screen.dart';
+
 import 'package:provider/provider.dart';
 
 void main() {
