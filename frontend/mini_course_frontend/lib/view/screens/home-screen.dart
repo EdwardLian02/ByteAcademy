@@ -107,7 +107,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => CourseDetailScreen(),
+                                  builder: (context) => CourseDetailScreen(
+                                    id: course.id,
+                                  ),
                                 ));
                           },
                           child: CourseTile(

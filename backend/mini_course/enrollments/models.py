@@ -5,8 +5,8 @@ from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Enrollment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='enrollment_set')
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='enrollment_set')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='enrollments')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_enrollments')
     progress = models.FloatField(default=0.0)
     completed = models.BooleanField(default=False)
     certificate_issued = models.BooleanField(default=False)

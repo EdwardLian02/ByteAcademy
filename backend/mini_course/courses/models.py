@@ -21,14 +21,19 @@ class Course(models.Model):
         lessons = self.lesson_set.all()
         return sum(lesson.video_duration for lesson in lessons)
     
+    @property
+    def total_lessons(self): 
+        return self.lesson_set.count()
+    
     def __str__(self):
         return self.title
     
-    
+
 class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lesson_set')
     name = models.CharField(max_length=225)
-    video_duration = models.IntegerField()
+    video_duration = models.IntegerField() #store in minutes format
+    url = models.URLField(max_length=600, default="https://www.youtube.com/watch?v=2PuFyjAs7JA&pp=ygUKdGVzdCB2aWRlbw%3D%3D")
 
     def __str__(self):
         return f'{self.course.title} : {self.name}'

@@ -31,9 +31,21 @@ class MyDrawer extends StatelessWidget {
             ),
             SizedBox(height: 20),
             //List tile part
-            showListTile(Icons.home, "Home", () {}),
-            showListTile(Icons.book, "Enrollments", () {}),
-            showListTile(Icons.settings, "Settings", () {}),
+            showListTile(
+                Icons.home,
+                "Home",
+                () => Navigator.pushNamedAndRemoveUntil(
+                    context, 'home', (Route<dynamic> route) => false)),
+            showListTile(
+                Icons.book,
+                "Enrollments",
+                () => Navigator.pushNamedAndRemoveUntil(
+                    context, 'enrollment', (Route<dynamic> route) => false)),
+            showListTile(
+                Icons.settings,
+                "Settings",
+                () => Navigator.pushNamedAndRemoveUntil(
+                    context, 'home', (Route<dynamic> route) => false)),
           ],
         ),
       ),
