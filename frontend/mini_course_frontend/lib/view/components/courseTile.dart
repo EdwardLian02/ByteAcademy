@@ -5,12 +5,14 @@ class CourseTile extends StatelessWidget {
   final String title;
   final String image;
   final int totalDuration;
+  final bool isAlreadyEnrolled;
 
   const CourseTile({
     super.key,
     required this.title,
     required this.totalDuration,
     required this.image,
+    required this.isAlreadyEnrolled,
   });
 
   @override
@@ -59,6 +61,13 @@ class CourseTile extends StatelessWidget {
                       ],
                     ),
                   ],
+                ),
+              ),
+              Visibility(
+                visible: isAlreadyEnrolled,
+                child: Icon(
+                  Icons.check,
+                  color: Colors.green,
                 ),
               ),
             ],

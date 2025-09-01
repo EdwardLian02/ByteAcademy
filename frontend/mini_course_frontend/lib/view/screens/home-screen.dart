@@ -1,9 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:mini_course_frontend/controller/AuthProvider.dart';
-import 'package:mini_course_frontend/controller/apiService.dart';
+
+import 'package:flutter/material.dart';
 import 'package:mini_course_frontend/controller/courseProvider.dart';
+import 'package:mini_course_frontend/controller/enrollmentProvider.dart';
+import 'package:mini_course_frontend/controller/searchProvider.dart';
 import 'package:mini_course_frontend/view/components/courseContainer.dart';
 import 'package:mini_course_frontend/view/components/courseTile.dart';
+import 'package:mini_course_frontend/view/components/filter_dropdown.dart';
 import 'package:mini_course_frontend/view/components/my_drawer.dart';
 import 'package:mini_course_frontend/view/components/searchbar.dart';
 import 'package:mini_course_frontend/view/globel_widget.dart';
@@ -23,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     fetchCourses();
+    fetchEnrollment();
   }
 
   void logout() async {
@@ -45,8 +49,18 @@ class _HomeScreenState extends State<HomeScreen> {
     await context.read<CourseProvider>().getCourseList();
   }
 
-  void fetchCoureDetail(id) async {
-    await context.read<CourseProvider>().getCourseDetail(id);
+  void fetchEnrollment() async {
+    await context.read<EnrollmentProvider>().fetchEnrollment();
+  }
+
+  void fetchCoureDetail() async {
+    await context.read<CourseProvider>().getCourseDetail();
+  }
+
+  bool checkIsEnrolled(int courseId) {
+    return Provider.of<EnrollmentProvider>(context, listen: false)
+        .userEnrolledCourseId
+        .contains(courseId);
   }
 
   @override
@@ -78,14 +92,42 @@ class _HomeScreenState extends State<HomeScreen> {
               style: AppTheme.body,
             ),
             SizedBox(height: 10),
-            MySearchBar(),
+            Hero(
+              tag: "searchBar",
+              child: MySearchBar(
+                onSubmitted: () {
+                  Provider.of<SearchProvider>(context, listen: false)
+                      .searchCourse();
+                  Navigator.pushNamed(context, 'search');
+                },
+                onChanged: (value) {
+                  Provider.of<SearchProvider>(context, listen: false)
+                      .searchKey = value;
+                  print(value);
+                },
+              ),
+            ),
             CourseContainer(),
             SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Course', style: AppTheme.subheading),
-                Text('See more', style: AppTheme.body),
+                FilterDropdown(
+                  icon: Icons.filter_alt,
+                  items: [
+                    "All",
+                    "Programming Language",
+                    "AI",
+                    "Data Science & Analytics"
+                  ],
+                  initialValue: "All",
+                  onChanged: (value) async {
+                    await Provider.of<CourseProvider>(context, listen: false)
+                        .filtering(value);
+                    print('finished filtering');
+                  },
+                ),
               ],
             ),
             SizedBox(height: 20),
@@ -94,7 +136,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (context, value, child) {
                   if (value.errorMessage != "") {
                     return Center(
-                      child: Text(value.errorMessage),
+                      child: Text(
+                        value.errorMessage,
+                        style: TextStyle(color: Colors.redAccent),
+                      ),
                     );
                   } else {
                     return ListView.builder(
@@ -103,19 +148,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         final course = value.courseList[index];
                         return GestureDetector(
                           onTap: () async {
-                            fetchCoureDetail(course.id);
+                            Provider.of<CourseProvider>(context, listen: false)
+                                .updateCurrentCourseInfo(
+                                    course.id, checkIsEnrolled(course.id));
+                            fetchCoureDetail();
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => CourseDetailScreen(
-                                    id: course.id,
-                                  ),
+                                  builder: (context) => CourseDetailScreen(),
                                 ));
                           },
                           child: CourseTile(
                             title: course.title,
                             totalDuration: course.totalDuration,
                             image: course.image,
+                            isAlreadyEnrolled: checkIsEnrolled(course.id),
                           ),
                         );
                       },

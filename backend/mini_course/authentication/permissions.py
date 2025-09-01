@@ -14,3 +14,4 @@ class IsAdminOrOwnerOfEnrollment(permissions.BasePermission):
             return True
 
         return obj.user == request.user
+   

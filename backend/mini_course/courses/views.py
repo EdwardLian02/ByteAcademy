@@ -15,10 +15,18 @@ class CourseViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     search_fields = ['title']
 
+    def get_queryset(self):
+        # In display screen, will only return the course that has not been enrolled by the user.
+        
+        return super().get_queryset()
+    
+
     def get_serializer_class(self):
         if self.action == 'retrieve': 
             return serializers.SimpleCourseSerializer
         return super().get_serializer_class()
+    
+
     
 
 

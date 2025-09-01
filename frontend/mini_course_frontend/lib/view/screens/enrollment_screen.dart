@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_course_frontend/controller/enrollmentProvider.dart';
 import 'package:mini_course_frontend/view/components/enrollment_tile.dart';
 import 'package:mini_course_frontend/view/components/my_drawer.dart';
+import 'package:mini_course_frontend/view/screens/lesson_screen.dart';
 import 'package:mini_course_frontend/view/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -54,6 +55,15 @@ class _EnrollmentScreenState extends State<EnrollmentScreen> {
                         totalDuration: enroll.course.totalDuration,
                         progress: enroll.progress,
                         imageUrl: enroll.course.image!,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LessonScreen(
+                                  courseInfo: enroll.course,
+                                ),
+                              ));
+                        },
                       ),
                     );
                   },

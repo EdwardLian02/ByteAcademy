@@ -7,17 +7,18 @@ class CourseModel {
   String? image;
   int totalDuration;
   int? totalLessons;
+  bool isEnrolled;
   List<dynamic>? lessonList;
 
-  CourseModel({
-    required this.id,
-    required this.title,
-    this.description,
-    this.image,
-    this.totalLessons,
-    required this.totalDuration,
-    this.lessonList,
-  });
+  CourseModel(
+      {required this.id,
+      required this.title,
+      this.description,
+      this.image,
+      this.totalLessons,
+      required this.totalDuration,
+      this.lessonList,
+      this.isEnrolled = false});
 
   factory CourseModel.fromJson(Map<String, dynamic> data) => CourseModel(
         id: data['id'],
@@ -27,6 +28,7 @@ class CourseModel {
         totalDuration: data['total_duration'],
         totalLessons: data['total_lessons'],
         lessonList: data['lesson_set'],
+        isEnrolled: false,
       );
 
   Map<String, dynamic> toJson() => {

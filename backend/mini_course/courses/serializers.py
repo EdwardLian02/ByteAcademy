@@ -37,5 +37,6 @@ class ShortCourseSerializer(serializers.ModelSerializer):
             'title',
             'image',
             'total_duration',
+            'gener'
         )
 

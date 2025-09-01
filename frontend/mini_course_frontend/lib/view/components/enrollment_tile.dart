@@ -8,12 +8,14 @@ class EnrollmentTile extends StatelessWidget {
   final int totalDuration;
   final double progress;
   final String imageUrl;
+  final void Function()? onPressed;
   const EnrollmentTile(
       {super.key,
       required this.courseTitle,
       required this.totalDuration,
       required this.progress,
-      required this.imageUrl});
+      required this.imageUrl,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +41,16 @@ class EnrollmentTile extends StatelessWidget {
         child: Column(
           children: [
             LinearPercentIndicator(
-              progressColor: Colors.grey,
+              barRadius: Radius.circular(20),
+              progressColor: Colors.green,
               lineHeight: 25,
-              fillColor: Colors.transparent,
+              backgroundColor: Colors.white70,
               curve: Curves.bounceOut,
-              percent: 0.1,
+              percent: progress,
+              center: Text(
+                '${progress * 100} %',
+                style: AppTheme.subheading3,
+              ),
             ),
             SizedBox(height: 10),
             Row(
@@ -56,7 +63,7 @@ class EnrollmentTile extends StatelessWidget {
                     Text("$totalDuration"),
                     SizedBox(height: 10),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: onPressed,
                       child: Text("Learn"),
                     ),
                   ],

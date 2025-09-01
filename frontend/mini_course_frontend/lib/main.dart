@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:mini_course_frontend/controller/AuthProvider.dart';
 import 'package:mini_course_frontend/controller/courseProvider.dart';
 import 'package:mini_course_frontend/controller/enrollmentProvider.dart';
+import 'package:mini_course_frontend/controller/searchProvider.dart';
+import 'package:mini_course_frontend/controller/tokenHelper.dart';
 
 import 'package:mini_course_frontend/view/screens/auth_screen.dart';
 import 'package:mini_course_frontend/view/screens/enrollment_screen.dart';
 
 import 'package:mini_course_frontend/view/screens/home-screen.dart';
-import 'package:mini_course_frontend/view/screens/lesson_screen.dart';
 import 'package:mini_course_frontend/view/screens/login-screen.dart';
 import 'package:mini_course_frontend/view/screens/register-screen.dart';
+import 'package:mini_course_frontend/view/screens/search_screen.dart';
 
 import 'package:provider/provider.dart';
 
@@ -20,6 +22,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => CourseProvider()),
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => EnrollmentProvider()),
+        ChangeNotifierProvider(create: (context) => SearchProvider()),
       ],
       child: const MyApp(),
     ),
@@ -41,6 +44,7 @@ class MyApp extends StatelessWidget {
         'register': (context) => RegisterScreen(),
         'home': (context) => HomeScreen(),
         'enrollment': (context) => EnrollmentScreen(),
+        'search': (context) => SearchScreen()
       },
     );
   }

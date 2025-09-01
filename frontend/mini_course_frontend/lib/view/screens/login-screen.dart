@@ -30,13 +30,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
       Navigator.pop(context);
 
+      //Display message
       if (provider.errorMessage != null) {
         showMessage(context, provider.errorMessage!);
       } else if (provider.successMessage != null) {
+        Navigator.pushNamedAndRemoveUntil(
+            context, 'auth', (Route<dynamic> route) => false);
         showMessage(context, provider.successMessage!);
       }
-      Navigator.pushNamedAndRemoveUntil(
-          context, 'auth', (Route<dynamic> route) => false);
     }
   }
 

@@ -28,4 +28,14 @@ class EnrollmentViewSet(viewsets.ModelViewSet):
 
     
 
+class ShortEnrollmentViewSet(viewsets.ModelViewSet): 
+    queryset = Enrollment.objects.all()
+    serializer_class = serializers.ShortEnrollmentSerializer
+    permission_classes = [IsAuthenticated, IsAdminOrOwnerOfEnrollment]
+
+    def get_queryset(self):
+        if not self.request.user.is_staff: 
+            return self.queryset.filter(user = self.request.user)
+        return super().get_queryset()
+    
  

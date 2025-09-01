@@ -54,5 +54,12 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         return value
 
 
+class ShortEnrollmentSerializer(serializers.ModelSerializer): 
+    class Meta: 
+        model = Enrollment
+        fields = (
+            'id', 
+            'course', 
+        )
 
 
