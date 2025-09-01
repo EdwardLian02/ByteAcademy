@@ -16,7 +16,7 @@ class EnrollmentProvider extends ChangeNotifier {
     enrollmentList = list;
     //Fetch the user already enrolled course ID from enrollment.
     print('adding user enrolled course ID');
-    for (EnrollmentModel enroll in enrollmentList) {
+    for (EnrollmentModel enroll in list) {
       userEnrolledCourseId.add(enroll.course.id);
     }
     notifyListeners();

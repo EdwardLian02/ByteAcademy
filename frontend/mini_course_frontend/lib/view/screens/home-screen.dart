@@ -58,9 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   bool checkIsEnrolled(int courseId) {
-    return Provider.of<EnrollmentProvider>(context, listen: false)
+    print("Course ID: $courseId");
+    final result = Provider.of<EnrollmentProvider>(context, listen: false)
         .userEnrolledCourseId
         .contains(courseId);
+    print("Is Enrolled? : $result");
+    return result;
   }
 
   @override
